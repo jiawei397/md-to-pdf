@@ -1,4 +1,6 @@
-# Markdown to PDF
+# Markdown or html to PDF
+
+forked from [md-to-pdf](https://www.npmjs.com/package/md-to-pdf)
 
 [![Github Actions Badge](https://github.com/simonhaenisch/md-to-pdf/workflows/Node%20CI/badge.svg)](https://github.com/simonhaenisch/md-to-pdf/actions)
 [![NPM version](https://img.shields.io/npm/v/md-to-pdf.svg)](https://www.npmjs.com/md-to-pdf)
@@ -26,7 +28,7 @@
 **Option 1: NPM**
 
 ```sh
-npm i -g md-to-pdf
+npm i -g md-html-to-pdf
 ```
 
 **Option 2: Git**
@@ -34,21 +36,21 @@ npm i -g md-to-pdf
 If you want to have your own copy to hack around with, clone the repository instead:
 
 ```sh
-git clone "https://github.com/simonhaenisch/md-to-pdf"
+git clone "https://github.com/jiawei397/md-to-pdf"
 cd md-to-pdf
 npm link # or npm i -g
 ```
 
-Then the commands `md-to-pdf` and `md2pdf` (as a shorthand) will be globally available in your cli. Use `npm start` to start the TypeScript compiler (`tsc`) in watch mode.
+Then the commands `md-html-to-pdf` and `mdhtml2pdf` (as a shorthand) will be globally available in your cli. Use `npm start` to start the TypeScript compiler (`tsc`) in watch mode.
 
 ## Update
 
-If you installed via npm, run `npm i -g md-to-pdf@latest` in your CLI. If you cloned this repository instead, you can simply do a `git pull` to get the latest changes from the master branch, then do `npm run build` to re-build. Unless there have been changes to packages (i. e. `package-lock.json`), you don't need to re-install the package (because NPM 5+ uses symlinks, at least on Unix systems).
+If you installed via npm, run `npm i -g md-html-to-pdf@latest` in your CLI. If you cloned this repository instead, you can simply do a `git pull` to get the latest changes from the master branch, then do `npm run build` to re-build. Unless there have been changes to packages (i. e. `package-lock.json`), you don't need to re-install the package (because NPM 5+ uses symlinks, at least on Unix systems).
 
 ## Usage
 
 ```
-$ md-to-pdf [options] path/to/file.md
+$ md-html-to-pdf [options] path/to/file.md
 
 Options:
 
@@ -76,7 +78,7 @@ Options:
 The pdf is generated into the same directory as the source file and uses the same filename (with `.pdf` extension) by default. Multiple files can be specified by using shell globbing, e. g.:
 
 ```sh
-md-to-pdf ./**/*.md
+md-html-to-pdf ./**/*.md
 ```
 
 _(If you use bash, you might need to enable the `globstar` shell option to make recursive globbing work.)_
@@ -84,7 +86,7 @@ _(If you use bash, you might need to enable the `globstar` shell option to make 
 Alternatively, you can pass the markdown in from `stdin` and pipe its `stdout` into a target file:
 
 ```sh
-cat file.md | md-to-pdf > path/to/output.pdf
+cat file.md | md-html-to-pdf > path/to/output.pdf
 ```
 
 _Tip: You can concatenate multiple files using `cat file1.md file2.md`._
@@ -99,11 +101,11 @@ Note that Preview on macOS does not automatically reload the preview when the fi
 
 #### Programmatic API
 
-The programmatic API is very simple: it only exposes one function that accepts either a `path` to or `content` of a markdown file, and an optional config object (which can be used to specify the output file destination).
+The programmatic API is very simple: it only exposes one function that accepts either a `path` to or `content` of a markdown file, or `html` as a html file string, and an optional config object (which can be used to specify the output file destination).
 
 ```js
 const fs = require('fs');
-const { mdToPdf } = require('md-to-pdf');
+const { mdToPdf } = require('md-html-to-pdf');
 
 (async () => {
 	const pdf = await mdToPdf({ path: 'readme.md' }).catch(console.error);
@@ -111,8 +113,21 @@ const { mdToPdf } = require('md-to-pdf');
 	if (pdf) {
 		fs.writeFileSync(pdf.filename, pdf.content);
 	}
+
+  const pdf2 = await mdToPdf({ html: `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+  <div>hello world</div>
+</body>
+</html>` }).catch(console.error);
+
+	if (pdf2) {
+		fs.writeFileSync(pdf2.filename, pdf2.content);
+	}
 })();
 ```
+
 
 The function throws an error if anything goes wrong, which can be handled by catching the rejected promise. If you set the `dest` option in the config, the file will be written to the specified location straight away:
 

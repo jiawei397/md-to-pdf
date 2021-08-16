@@ -1,9 +1,10 @@
 {
-  "name": "md-to-pdf",
-  "version": "4.0.0",
-  "description": "CLI tool for converting Markdown files to PDF.",
+  "name": "md-html-to-pdf",
+  "version": "4.1.0",
+  "description": "CLI tool for converting Markdown files or Html files to PDF.",
   "keywords": [
     "markdown-to-pdf",
+    "html-to-pdf",
     "cli",
     "pdf-generation",
     "documentation",
@@ -33,13 +34,13 @@
     "loc": "npx cloc src --exclude-dir=test --by-file"
   },
   "bin": {
-    "md-to-pdf": "dist/cli.js",
-    "md2pdf": "dist/cli.js"
+    "md-html-to-pdf": "dist/cli.js",
+    "mdhtml2pdf": "dist/cli.js"
   },
-  "author": "Simon Haenisch (https://github.com/simonhaenisch)",
+  "author": "jiawei397",
   "license": "MIT",
-  "repository": "simonhaenisch/md-to-pdf",
-  "homepage": "https://github.com/simonhaenisch/md-to-pdf#readme",
+  "repository": "jiawei397/md-to-pdf",
+  "homepage": "https://github.com/jiawei397/md-to-pdf#readme",
   "dependencies": {
     "arg": "5.0.0",
     "chalk": "4.1.1",
@@ -58,6 +59,7 @@
   "devDependencies": {
     "@types/listr": "0.14.3",
     "@types/marked": "2.0.3",
+    "@types/node": "^16.6.1",
     "@types/semver": "7.3.6",
     "@types/serve-handler": "6.1.0",
     "ava": "3.15.0",
