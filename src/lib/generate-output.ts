@@ -128,7 +128,13 @@ export async function generateOutputs(
 
 	const page = await browser.newPage();
 
-	const result = await Promise.all(params.map(async (param) => {
+	const results = [];
+
+	for (let i = 0; i < params.length; i++) {
+		const param = params[i];
+		if (!param) {
+			continue;
+		}
 		const outputFileContent = await makeContent(
 			page,
 			param.html,
@@ -140,12 +146,12 @@ export async function generateOutputs(
 				}
 				: config,
 		);
-		return config.devtools ? (undefined as any) : {
+		results.push(config.devtools ? (undefined as any) : {
 			filename: param.dest ?? config.dest,
 			content: outputFileContent,
-		};
-	}));
+		});
+	}
 
 	await browser.close();
-	return result;
+	return results;
 }
