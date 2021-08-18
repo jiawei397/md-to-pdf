@@ -116,7 +116,7 @@ async function main(args: typeof cliFlags, config: Config) {
 
 	config.port = args['--port'] ?? (await getPort());
 
-	const server = await serveDirectory(config);
+	const server = await serveDirectory(config.basedir, config.port);
 
 	/**
 	 * 4. Either process stdin or create a Listr task for each file.
