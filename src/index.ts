@@ -135,6 +135,7 @@ export async function mdsToPdfs(
 		const mergedConfig: Config = {
 			...defaultConfig,
 			...config,
+			port,
 			pdf_options: { ...defaultConfig.pdf_options, ...config.pdf_options },
 		};
 		return {
