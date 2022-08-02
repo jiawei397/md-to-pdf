@@ -75,7 +75,7 @@ async function makeContent(
 		if (index === 0) {
 			index++;
 			// 如果是纯粹的html，不需要markdown的样式
-			if (config.as_html) {
+			if (config.isHtml) {
 				continue;
 			}
 		}

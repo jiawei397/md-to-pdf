@@ -94,7 +94,9 @@ export const convertMdToHtml = async (
 ) => {
 	let md = "";
 	let frontMatterConfig: any = {};
+	let isHtml = false;
 	if ("html" in input) {
+		isHtml = true;
 	} else {
 		const mdFileContent = "content" in input ? input.content : await readFile(
 			input.path,
@@ -114,6 +116,7 @@ export const convertMdToHtml = async (
 			...config.pdf_options,
 			...(frontMatterConfig.pdf_options || {}),
 		},
+		isHtml
 	};
 
 	const { headerTemplate, footerTemplate, displayHeaderFooter } =

@@ -143,4 +143,6 @@ interface BasicConfig {
 	 * This is specifically useful when running into issues when editor plugins trigger additional saves after the initial save.
 	 */
 	watch_options?: WatchOptions;
+
+	isHtml?: boolean;
 }
