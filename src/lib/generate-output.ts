@@ -70,7 +70,15 @@ async function makeContent(
 	await page.goto(`http://localhost:${config.port!}${relativePath}`); // make sure relative paths work as expected
 	await page.setContent(html); // overwrite the page content with what was generated from the markdown
 
+	let index = 0;
 	for (const stylesheet of config.stylesheet) {
+		if (index === 0) {
+			index++;
+			// 如果是纯粹的html，不需要markdown的样式
+			if (config.as_html) {
+				continue;
+			}
+		}
 		await page.addStyleTag(
 			isHttpUrl(stylesheet) ? { url: stylesheet } : { path: stylesheet },
 		);
