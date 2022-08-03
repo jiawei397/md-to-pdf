@@ -112,7 +112,9 @@ async function makeContent(
 	} else if (config.as_html) {
 		outputFileContent = await page.content();
 	} else {
-		await page.emulateMediaType(config.page_media_type);
+		if (!config.isHtml) {
+			await page.emulateMediaType(config.page_media_type);
+		}
 		outputFileContent = await page.pdf(config.pdf_options);
 	}
 
