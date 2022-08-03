@@ -1,6 +1,6 @@
 {
   "name": "md-html-to-pdf",
-  "version": "4.1.9",
+  "version": "4.1.10",
   "description": "CLI tool for converting Markdown files or Html files to PDF.",
   "keywords": [
     "markdown-to-pdf",
