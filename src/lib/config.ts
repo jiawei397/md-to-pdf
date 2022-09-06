@@ -145,4 +145,7 @@ interface BasicConfig {
 	watch_options?: WatchOptions;
 
 	isHtml?: boolean;
+
+	/** set content timeout, default is 30 seconds */
+	contentTimeout?: number;
 }

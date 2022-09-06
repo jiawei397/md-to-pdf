@@ -68,7 +68,9 @@ async function makeContent(
 ) {
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	await page.goto(`http://localhost:${config.port!}${relativePath}`); // make sure relative paths work as expected
-	await page.setContent(html); // overwrite the page content with what was generated from the markdown
+	await page.setContent(html, {
+		timeout: config.contentTimeout
+	}); // overwrite the page content with what was generated from the markdown
 
 	let index = 0;
 	for (const stylesheet of config.stylesheet) {
