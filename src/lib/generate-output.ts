@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+import puppeteer, { Page } from "puppeteer";
 import { Config, HtmlConfig, PdfConfig } from "./config";
 import { isHttpUrl } from "./is-http-url";
 
@@ -61,7 +61,7 @@ export async function generateOutput(
 }
 
 async function makeContent(
-	page: any,
+	page: Page,
 	html: string,
 	relativePath: string,
 	config: Config,
@@ -96,12 +96,9 @@ async function makeContent(
 
 	/**
 	 * Trick to wait for network to be idle.
-	 *
-	 * @todo replace with page.waitForNetworkIdle once exposed
-	 * @see https://github.com/GoogleChrome/puppeteer/issues/3083
 	 */
 	await Promise.all([
-		page.waitForNavigation({ waitUntil: "networkidle0" }),
+		page.waitForNetworkIdle(),
 		page.evaluate(() =>
 			history.pushState(undefined, "", "#")
 		), /* eslint no-undef: off */
