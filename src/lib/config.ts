@@ -148,4 +148,7 @@ interface BasicConfig {
 
 	/** set content timeout, default is 30 seconds */
 	contentTimeout?: number;
+
+	/** wait before setContent, ms */
+	waitContentTimeout?: number;
 }
