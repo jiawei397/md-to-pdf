@@ -67,7 +67,11 @@ async function makeContent(
 	config: Config,
 ) {
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	await page.goto(`http://localhost:${config.port!}${relativePath}`); // make sure relative paths work as expected
+	await page.goto(`http://localhost:${config.port!}${relativePath}`, {
+		waitUntil: 'load',
+    // Remove the timeout
+    timeout: 0
+	}); // make sure relative paths work as expected
 
 	if (config.waitContentTimeout !== undefined) {
 		await new Promise(resolve => setTimeout(resolve, config.waitContentTimeout));
